@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://b01scoj7dkfp3"]
+
+[ext_resource type="Script" path="res://Game.gd" id="1_axdw7"]
+[ext_resource type="PackedScene" uid="uid://dr43nanrm3ov4" path="res://boxman.tscn" id="2_pvmbk"]
+[ext_resource type="Texture2D" uid="uid://ber46jifynuwx" path="res://assets/yellow1.png" id="3_fb3mt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lb217"]
+size = Vector2(887, 54)
+
+[node name="Game" type="Node"]
+script = ExtResource("1_axdw7")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(575, 324)
+
+[node name="Red Box" parent="." instance=ExtResource("2_pvmbk")]
+position = Vector2(533, 18)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(568.5, 522)
+shape = SubResource("RectangleShape2D_lb217")
+
+[node name="Yellow Box" parent="." instance=ExtResource("2_pvmbk")]
+position = Vector2(316, 0)
+
+[node name="CollisonBox" parent="Yellow Box" index="0"]
+position = Vector2(-46, 446)
+
+[node name="Sprite2D" parent="Yellow Box" index="1"]
+position = Vector2(-46, 446)
+texture = ExtResource("3_fb3mt")
+
+[editable path="Yellow Box"]
