@@ -1,5 +1,9 @@
 # Godot Networking Example
 
+Using Godot 4.4
+
+## Overview
+
 Goal of this example is to create two player characters where one is controlled locally and the other is controlled via a networked player connection. This should be accomplished using the High-Level Networking API within Godot so that we are not tied down to a particular network protocol.
 
 However, since the goal is to use WebRTC networking in a browser consider setting things up to be highly compatible with that:
