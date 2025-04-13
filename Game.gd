@@ -1,13 +1,16 @@
 extends Node
 
-func _ready():
-	# Create client.
-	var peer = ENetMultiplayerPeer.new()
-	peer.create_client(IP_ADDRESS, PORT)
-	multiplayer.multiplayer_peer = peer
+var peer = ENetMultiplayerPeer.new()
 
-	# Create server.
-	var peer = ENetMultiplayerPeer.new()
-	peer.create_server(4000, 4)
+func _on_host_pressed():
+	peer.create_server(25565)
 	multiplayer.multiplayer_peer = peer
-		
+	
+	multiplayer.peer_connected.connect(
+		func(pid):
+			print("Peer " + str(pid) + " has joined the game!")
+	)
+
+func _on_join_pressed():
+	peer.create_client("localhost", 25565)
+	multiplayer.multiplayer_peer = peer
