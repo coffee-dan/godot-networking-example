@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://b01scoj7dkfp3"]
+[gd_scene load_steps=7 format=3 uid="uid://b01scoj7dkfp3"]
 
 [ext_resource type="Script" uid="uid://b2keq3x2nbwd4" path="res://Game.gd" id="1_axdw7"]
 [ext_resource type="PackedScene" uid="uid://dr43nanrm3ov4" path="res://boxman.tscn" id="2_pvmbk"]
@@ -7,29 +7,58 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lb217"]
 size = Vector2(887, 54)
 
+[sub_resource type="Gradient" id="Gradient_feb5d"]
+interpolation_mode = 2
+colors = PackedColorArray(0, 0.756863, 0, 1, 0.513726, 0.396078, 0.223529, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_fc0e3"]
+gradient = SubResource("Gradient_feb5d")
+fill_to = Vector2(0, 1)
+
 [node name="Game" type="Node"]
 script = ExtResource("1_axdw7")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="MainLevel" type="Node" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="MainLevel"]
 position = Vector2(575, 324)
 
-[node name="Red Box" parent="." instance=ExtResource("2_pvmbk")]
+[node name="Red Box" parent="MainLevel" instance=ExtResource("2_pvmbk")]
 position = Vector2(533, 18)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="StaticBody2D" type="StaticBody2D" parent="MainLevel"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MainLevel/StaticBody2D"]
 position = Vector2(568.5, 522)
 shape = SubResource("RectangleShape2D_lb217")
 
-[node name="Yellow Box" parent="." instance=ExtResource("2_pvmbk")]
+[node name="Sprite2D" type="Sprite2D" parent="MainLevel/StaticBody2D"]
+position = Vector2(568, 522)
+scale = Vector2(13.875, 0.84375)
+texture = SubResource("GradientTexture2D_fc0e3")
+
+[node name="Yellow Box" parent="MainLevel" instance=ExtResource("2_pvmbk")]
 position = Vector2(316, 0)
 
-[node name="CollisonBox" parent="Yellow Box" index="0"]
+[node name="CollisonBox" parent="MainLevel/Yellow Box" index="0"]
 position = Vector2(-46, 446)
 
-[node name="Sprite2D" parent="Yellow Box" index="1"]
+[node name="Sprite2D" parent="MainLevel/Yellow Box" index="1"]
 position = Vector2(-46, 446)
 texture = ExtResource("3_fb3mt")
 
-[editable path="Yellow Box"]
+[node name="MainMenu" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 120
+theme_override_constants/margin_top = 80
+theme_override_constants/margin_right = 120
+theme_override_constants/margin_bottom = 80
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MainMenu"]
+layout_mode = 2
+
+[editable path="MainLevel/Yellow Box"]

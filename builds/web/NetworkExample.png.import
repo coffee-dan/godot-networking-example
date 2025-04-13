@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c3x71eipe630v"
-path="res://.godot/imported/NetworkExample.png-2b3013d236e7ff999237801814af3f9c.ctex"
+path="res://.godot/imported/NetworkExample.png-606839aa0a28b5c6a54fd3d5d9fc3b37.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://builds/NetworkExample.png"
-dest_files=["res://.godot/imported/NetworkExample.png-2b3013d236e7ff999237801814af3f9c.ctex"]
+source_file="res://builds/web/NetworkExample.png"
+dest_files=["res://.godot/imported/NetworkExample.png-606839aa0a28b5c6a54fd3d5d9fc3b37.ctex"]
 
 [params]
 
