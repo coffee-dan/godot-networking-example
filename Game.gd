@@ -8,6 +8,10 @@ const PORT = 25565
 const PLAYER = preload("res://player/player.tscn")
 
 var peer = ENetMultiplayerPeer.new()
+var players: Array[Player] = []
+
+func _ready():
+	$MultiplayerSpawner.spawn_function = add_player
 
 func _on_host_pressed():
 	peer.create_server(PORT)
@@ -16,10 +20,10 @@ func _on_host_pressed():
 	multiplayer.peer_connected.connect(
 		func(pid):
 			print("Peer " + str(pid) + " has joined the game!")
-			add_player(pid, CLIENT_START_POS)
+			$MultiplayerSpawner.spawn(pid)
 	)
 	
-	add_player(multiplayer.get_unique_id(), HOST_START_POS)
+	$MultiplayerSpawner.spawn(multiplayer.get_unique_id())
 	multiplayer_ui.hide()
 
 func _on_join_pressed():
@@ -27,9 +31,9 @@ func _on_join_pressed():
 	multiplayer.multiplayer_peer = peer
 	multiplayer_ui.hide()
 
-func add_player(pid : int, pos : Vector2):
+func add_player(pid : int):
 	var player = PLAYER.instantiate()
 	player.name = str(pid)
-	player.position = pos
-	add_child(player)
+	player.global_position = $Level.get_child(players.size()).global_position
+	players.append(player)
 	return player

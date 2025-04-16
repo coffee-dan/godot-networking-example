@@ -1,7 +1,8 @@
+class_name Player
 extends CharacterBody2D
 
 const SPEED = 100.0
-const JUMP_VELOCITY = -200.0
+const JUMP_VELOCITY = -240.0
 
 func _enter_tree():
 	set_multiplayer_authority(int(str(name)))
@@ -14,13 +15,15 @@ func _physics_process(delta):
 	if !is_multiplayer_authority():
 		return
 	
-	#print(name + " " + str(position.x) + ", " + str(position.y) )
+	$GunContainer.look_at(get_global_mouse_position())
+	
+	if get_global_mouse_position().x < global_position.x:
+		$GunContainer/GunSprite.flip_v = true
+	else:
+		$GunContainer/GunSprite.flip_v = false
 	
 	# Add the gravity.
 	if not is_on_floor():
-		print(name + " go down " + str(position.x) + ", " +  str(position.y))
-		if position.y > 200.0:
-			get_tree().quit()
 		velocity += get_gravity() * delta
 
 	# Handle jump.

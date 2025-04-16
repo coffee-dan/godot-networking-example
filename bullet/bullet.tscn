@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://dmvy8yk0ppejc"]
+
+[ext_resource type="Texture2D" uid="uid://b2lak84vl0uxo" path="res://player/yellow.png" id="1_k2aps"]
+
+[node name="Bullet" type="Area2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_k2aps")
+region_enabled = true
+region_rect = Rect2(0, 0, 1, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
