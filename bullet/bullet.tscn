@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://dmvy8yk0ppejc"]
+[gd_scene load_steps=3 format=3 uid="uid://dmvy8yk0ppejc"]
 
 [ext_resource type="Texture2D" uid="uid://b2lak84vl0uxo" path="res://player/yellow.png" id="1_k2aps"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k2aps"]
 
 [node name="Bullet" type="Area2D"]
 
@@ -10,3 +12,5 @@ region_enabled = true
 region_rect = Rect2(0, 0, 1, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.05, 0.05)
+shape = SubResource("RectangleShape2D_k2aps")
