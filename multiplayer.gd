@@ -2,8 +2,10 @@ extends Node
 
 signal noray_connected
 
+const NETWORK_STRATEGY = "localhost"
 const NORAY_ADDRESS = "tomfol.io"
 const NORAY_PORT = 8890
+const LOCALHOST_PORT = 25565
 
 var is_host := false
 var external_oid := ""
@@ -11,14 +13,21 @@ var external_oid := ""
 # Overall attempting to use NAT punchthrough, if that is not available use relay
 # server to coordinate multiplayer
 
-func _ready():
-	Noray.on_connect_to_host.connect(on_noray_connected)
-	Noray.on_connect_nat.connect(handle_nat_connection)
-	Noray.on_connect_relay.connect(handle_relay_connection)
+func using_noray() -> bool:
+	return NETWORK_STRATEGY == "noray"
+
+func _ready() -> void:
+	if using_noray():
+		print("Setting up for Noray...")
+		Noray.on_connect_to_host.connect(on_noray_connected)
+		Noray.on_connect_nat.connect(handle_nat_connection)
+		Noray.on_connect_relay.connect(handle_relay_connection)
+		
+		Noray.connect_to_host(NORAY_ADDRESS, NORAY_PORT)
+	else:
+		pass
 	
-	Noray.connect_to_host(NORAY_ADDRESS, NORAY_PORT)
-	
-func on_noray_connected():
+func on_noray_connected() -> void:
 	print("Connected to Noray server")
 	Noray.register_host()
 	await Noray.on_pid
@@ -28,14 +37,22 @@ func on_noray_connected():
 func host() -> void:
 	print("Hosting...")
 	var peer = ENetMultiplayerPeer.new()
-	peer.create_server(Noray.local_port)
+	var port: int = Noray.local_port if using_noray() else LOCALHOST_PORT
+	
+	peer.create_server(port)
 	multiplayer.multiplayer_peer = peer
 	is_host = true
 
-# oid is effectively the lobby code	
-func join(oid: String) -> void:
-	Noray.connect_nat(oid)
-	external_oid = oid
+# oid is effectively the lobby code
+func join(oid: String = "") -> void:
+	if using_noray():
+		assert(oid.length() > 0)
+		Noray.connect_nat(oid)
+		external_oid = oid
+	else:
+		var peer = ENetMultiplayerPeer.new()
+		peer.create_client("localhost", LOCALHOST_PORT)
+		multiplayer.multiplayer_peer = peer
 
 func handle_nat_connection(address: String, port: int) -> Error:
 	var err = await connect_to_server(address, port)
