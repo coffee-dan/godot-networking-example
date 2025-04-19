@@ -1,3 +1,4 @@
+class_name Game
 extends Node
 
 @onready var multiplayer_ui = $UI/Multiplayer
@@ -37,3 +38,6 @@ func add_player(pid : int):
 	player.global_position = $Level.get_child(players.size()).global_position
 	players.append(player)
 	return player
+
+func get_random_spawnpoint():
+	return $Level.get_children().pick_random().global_position
