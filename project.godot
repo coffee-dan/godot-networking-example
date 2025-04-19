@@ -15,11 +15,21 @@ run/main_scene="uid://b01scoj7dkfp3"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Multiplayer="*res://multiplayer.gd"
+Noray="*res://addons/netfox.noray/noray.gd"
+PacketHandshake="*res://addons/netfox.noray/packet-handshake.gd"
+
 [display]
 
 window/size/viewport_width=960
 window/size/viewport_height=540
 window/stretch/mode="viewport"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/netfox.internals/plugin.cfg", "res://addons/netfox.noray/plugin.cfg")
 
 [input]
 

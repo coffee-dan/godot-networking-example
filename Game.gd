@@ -2,6 +2,8 @@ class_name Game
 extends Node
 
 @onready var multiplayer_ui = $UI/Multiplayer
+@onready var oid_label = $UI/Multiplayer/VBoxContainer/OID
+@onready var oid_input = $UI/Multiplayer/VBoxContainer/OIDInput
 
 const HOST_START_POS = Vector2(78.0, 62.0)
 const CLIENT_START_POS = Vector2(192.0, 62.0)
@@ -13,10 +15,15 @@ var players: Array[Player] = []
 
 func _ready():
 	$MultiplayerSpawner.spawn_function = add_player
+	
+	await Multiplayer.noray_connected
+	oid_label.text = Noray.oid
 
 func _on_host_pressed():
-	peer.create_server(PORT)
-	multiplayer.multiplayer_peer = peer
+	#peer.create_server(PORT)
+	#multiplayer.multiplayer_peer = peer
+	
+	Multiplayer.host()
 	
 	multiplayer.peer_connected.connect(
 		func(pid):
@@ -28,8 +35,11 @@ func _on_host_pressed():
 	multiplayer_ui.hide()
 
 func _on_join_pressed():
-	peer.create_client("localhost", PORT)
-	multiplayer.multiplayer_peer = peer
+	#peer.create_client("localhost", PORT)
+	#multiplayer.multiplayer_peer = peer
+	
+	Multiplayer.join(oid_input.text)
+	
 	multiplayer_ui.hide()
 
 func add_player(pid : int):
@@ -41,3 +51,6 @@ func add_player(pid : int):
 
 func get_random_spawnpoint():
 	return $Level.get_children().pick_random().global_position
+
+func _on_copy_oid_pressed():
+	DisplayServer.clipboard_set(Noray.oid)
