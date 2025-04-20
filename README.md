@@ -27,3 +27,9 @@ Use of netfox.noray based on multiplayer guide:
 - Working multiplayer arena shooter over Noray example server
 
 ![recording](2025-04-19_godot-networking-example-progress-optimized.gif)
+
+- Run build locally with
+
+```sh
+npx http-server -c-1 builds/web
+```

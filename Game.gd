@@ -11,19 +11,19 @@ var players: Array[Player] = []
 
 func _ready():
 	$MultiplayerSpawner.spawn_function = add_player
-	
+
 	await Multiplayer.noray_connected
 	oid_label.text = Noray.oid
 
 func _on_host_pressed():
 	Multiplayer.host()
-	
+
 	multiplayer.peer_connected.connect(
 		func(pid):
 			print("Peer " + str(pid) + " has joined the game!")
 			$MultiplayerSpawner.spawn(pid)
 	)
-	
+
 	$MultiplayerSpawner.spawn(multiplayer.get_unique_id())
 	multiplayer_ui.hide()
 

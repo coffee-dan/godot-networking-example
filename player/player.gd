@@ -13,7 +13,7 @@ var health = MAX_HEALTH
 
 func _enter_tree():
 	set_multiplayer_authority(int(str(name)))
-	
+
 func _ready():
 	if name == "1":
 		$Sprite2D.modulate = Color.RED
@@ -21,17 +21,17 @@ func _ready():
 func _physics_process(delta):
 	if !is_multiplayer_authority():
 		return
-	
+
 	$GunContainer.look_at(get_global_mouse_position())
-	
+
 	if get_global_mouse_position().x < global_position.x:
 		$GunContainer/GunSprite.flip_v = true
 	else:
 		$GunContainer/GunSprite.flip_v = false
-	
+
 	if Input.is_action_just_pressed("shoot"):
 		shoot.rpc(multiplayer.get_unique_id())
-	
+
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -63,7 +63,7 @@ func shoot(shooter_pid: int):
 @rpc("any_peer")
 func take_damage(amount: int) -> void:
 	health -= amount
-	
+
 	if health <= 0:
 		health = MAX_HEALTH
 		global_position = game.get_random_spawnpoint()
