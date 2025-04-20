@@ -1,6 +1,11 @@
 # Godot Networking Example
 
-Using Godot 4.4
+Based on [Multiplayer Arena Shooter by curtjs](https://www.youtube.com/watch?v=CS5qU7eOwb8&list=PLPYmLuhIwZO-v6rNON9hYKNJMXhfXwYtQ)
+
+Using
+- Godot 4.4
+- Compatibility rendering
+- netfox.noray for P2P setup
 
 ## Overview
 
@@ -10,17 +15,15 @@ However, since the goal is to use WebRTC networking in a browser consider settin
 - Godot 4.3+ because this introduces an web export template that utilizes single-thread which is more widely accepted by browsers due to a SharedArrayBuffer exploit in the multi-threaded approach used in earlier versions.
 - GodotScript Only
 
-see: https://docs.godotengine.org/en/stable/tutorials/export/exporting_for_web.html
-see: https://github.com/godotengine/godot-demo-projects
-see: https://github.com/godotengine/godot-demo-projects/tree/master/networking/multiplayer_bomber
+- https://docs.godotengine.org/en/stable/tutorials/export/exporting_for_web.html
+- https://github.com/godotengine/godot-demo-projects
+- https://github.com/godotengine/godot-demo-projects/tree/master/networking/multiplayer_bomber
 
+Use of netfox.noray based on multiplayer guide:
+- https://www.youtube.com/watch?v=g-k_cM7aFgo&list=PLPYmLuhIwZO-v6rNON9hYKNJMXhfXwYtQ&index=4
 
 ## Current Progress
 
-- Simple Main scene
-    - Camera
-    - Platform for players to stand on
-    - Player characters with simple sprites
-    - Basic movement logic (both players move with arrow keys lol)
+- Working multiplayer arena shooter over Noray example server
 
-![recording](Screencast_20250321_155356.gif)
+![recording](2025-04-19_godot-networking-example-progress-optimized.gif)
