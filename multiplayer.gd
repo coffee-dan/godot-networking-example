@@ -3,7 +3,7 @@ extends Node
 signal noray_connected
 
 const NETWORK_STRATEGY = "noray"
-const NORAY_ADDRESS = "tomfol.io"
+const NORAY_ADDRESS = "noray.fly.dev"
 const NORAY_PORT = 8890
 const LOCALHOST_PORT = 25565
 
